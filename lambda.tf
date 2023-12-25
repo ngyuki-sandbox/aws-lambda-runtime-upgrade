@@ -26,7 +26,7 @@ provider "aws" {
 
 data "archive_file" "main" {
   type        = "zip"
-  source_file = "index.js"
+  source_file = "index.mjs"
   output_path = "lambda.zip"
 }
 
@@ -34,7 +34,7 @@ resource "aws_lambda_function" "main" {
   function_name = var.project
   role          = aws_iam_role.main.arn
   handler       = "index.handler"
-  runtime       = "nodejs16.x"
+  runtime       = "nodejs20.x"
   timeout       = 60
 
   filename         = data.archive_file.main.output_path
